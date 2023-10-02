@@ -1,12 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'firebase_options.dart';
 import 'routes/pages.dart';
 import 'routes/routes.dart';
 import 'utils/strings.dart';
 
 void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // firebase initialization
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // initialization of get storage
   await GetStorage.init();

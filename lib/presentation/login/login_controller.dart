@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_ecommerc/utils/logger.dart';
 
-import '../../utils/password_validation.dart';
+import '../../utils/app_config.dart';
 
 class LoginController extends GetxController{
   final emailController = TextEditingController();

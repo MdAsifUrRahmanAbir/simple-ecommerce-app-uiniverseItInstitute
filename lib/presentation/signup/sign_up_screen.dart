@@ -76,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
               height: 10,
             ),
             PasswordTextInputWidget(
-                controller: controller.passNameController,
+                controller: controller.passwordController,
                 hintext: "Enter Password",
                 bordercolor: Colors.green,
                 keyboardtype: TextInputType.name),
