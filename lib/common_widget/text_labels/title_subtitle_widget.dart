@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 
 import 'title_heading1_widget.dart';
 
@@ -22,11 +20,15 @@ class TitleSubTitleWidget extends StatelessWidget {
         TitleHeading1Widget(
           text: title,
           padding: const EdgeInsets.only(bottom: 12),
+            fontWeight: FontWeight.bold,
+            color: Colors.blue
         ),
-
         TitleHeading1Widget(
           text: subtitle,
           opacity: .7,
+          maxLines: 2,
+          textAlign: TextAlign.left,
+          color: Colors.purple,
           padding: const EdgeInsets.only(left: 6),
         ),
       ],
