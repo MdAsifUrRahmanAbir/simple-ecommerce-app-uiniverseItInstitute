@@ -1,9 +1,7 @@
-import 'package:b21_app/utils/custom_color.dart';
-import 'package:b21_app/utils/custom_style.dart';
-import 'package:b21_app/widgets/text_labels/custom_title_heading_widget.dart';
+
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions.dart';
+
 import 'title_heading1_widget.dart';
 
 class TitleSubTitleWidget extends StatelessWidget {
@@ -23,16 +21,13 @@ class TitleSubTitleWidget extends StatelessWidget {
       children: [
         TitleHeading1Widget(
           text: title,
-          padding: EdgeInsets.only(bottom: Dimensions.paddingSize * 0.3),
+          padding: const EdgeInsets.only(bottom: 12),
         ),
-        CustomTitleHeadingWidget(
+
+        TitleHeading1Widget(
           text: subtitle,
-          textAlign: TextAlign.center,
-          style: CustomStyle.darkHeading4TextStyle.copyWith(
-            fontSize: Dimensions.headingTextSize3,
-            fontWeight: FontWeight.w500,
-            color: CustomColor.primaryColor.withOpacity(0.5),
-          ),
+          opacity: .7,
+          padding: const EdgeInsets.only(left: 6),
         ),
       ],
     );

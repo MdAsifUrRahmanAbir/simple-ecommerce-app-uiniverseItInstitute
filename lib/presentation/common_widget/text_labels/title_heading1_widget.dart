@@ -36,7 +36,7 @@ class TitleHeading1Widget extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              fontSize: fontSize ?? ,
+              fontSize: fontSize ?? 24,
               fontWeight: fontWeight ?? FontWeight.w600,
               color: color ?? CustomColor.primaryTextColor
           ),
