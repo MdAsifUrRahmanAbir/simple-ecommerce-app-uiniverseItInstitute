@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_ecommerc/utils/logger.dart';
 
+import '../../backend/services/firebase_service.dart';
+import '../../routes/routes.dart';
 import '../../utils/app_config.dart';
 
 class LoginController extends GetxController{
@@ -19,6 +22,7 @@ class LoginController extends GetxController{
         if(passwordRegex.hasMatch(passController.text)){
           emailController.text.greenConsole;
           passController.text.greenConsole;
+          loginProcess();
         }
         else{
           Get.snackbar("Invalid Password", "Your password is not valid syntax");
@@ -33,4 +37,30 @@ class LoginController extends GetxController{
       }
     }
   }
+  // For google Password SignIn method
+  void loginProcess() async{
+
+    final UserCredential userCredential = await FirebaseServices.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passController.text
+    );
+    debugPrint("-------signInWithGoogle  =>  1  --------");
+
+    if(userCredential.user!.emailVerified){
+      final user = userCredential.user!;
+
+      debugPrint(user.email);
+      debugPrint(user.displayName);
+      debugPrint(user.photoURL);
+      debugPrint(user.uid);
+      debugPrint("Valid User");
+
+    }else{
+      debugPrint("Invalid User");
+    }
+    Get.snackbar("Login Successfully", "You are ready to go");
+    Get.toNamed(Routes.signUpScreen);
+
+  }
+
 }

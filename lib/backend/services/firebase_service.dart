@@ -48,7 +48,7 @@ class FirebaseServices {
     }
   }
 
-  Future<UserCredential> signInWithEmailAndPassword(
+  static Future<UserCredential> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       final credential = await _auth.signInWithEmailAndPassword(
