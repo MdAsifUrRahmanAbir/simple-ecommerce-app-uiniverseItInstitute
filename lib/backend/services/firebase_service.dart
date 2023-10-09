@@ -6,6 +6,8 @@ import 'package:simple_ecommerc/utils/logger.dart';
 
 import '../../common_widget/toast_message.dart';
 import '../../routes/routes.dart';
+import '../models/banners_model.dart';
+import '../models/popular_product_model.dart';
 
 
 class FirebaseServices {
@@ -17,6 +19,8 @@ class FirebaseServices {
 
   static const String customerUserInfo = "customerUserInfo";
   static const String sellerInfo = "sellerInfo";
+  static const String banners = "banners";
+  static const String popularProducts = "popularProducts";
 
 
   /// auth
@@ -128,6 +132,41 @@ class FirebaseServices {
       // Get.offAllNamed(Routes.bottomNavScreen);
     }  else {
       setData(userData, isUser);
+    }
+  }
+
+  static Future<List<BannerModel>?> fetchBanner()async{
+    try{
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await _fireStore.collection(banners).get();
+
+      List<BannerModel> bannerList = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return BannerModel.fromJson(data);
+      }).toList();
+
+      return bannerList;
+    }catch(e){
+      "Error From fetch banner in firebase services".bgRedConsole;
+      e.toString().redConsole;
+      return null;
+    }
+  }
+
+  static Future<List<PopularProductModel>?> fetchPopularProduct()async{
+    try{
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await _fireStore.collection(popularProducts).get();
+
+      List<PopularProductModel> bannerList = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return PopularProductModel.fromJson(data);
+      }).toList();
+
+
+      return bannerList;
+    }catch(e){
+      "Error From fetch banner in firebase services".bgRedConsole;
+      e.toString().redConsole;
+      return null;
     }
   }
 
