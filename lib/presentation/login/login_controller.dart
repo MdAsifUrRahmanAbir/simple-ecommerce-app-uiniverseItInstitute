@@ -15,7 +15,6 @@ class LoginController extends GetxController{
 
   final formKey = GlobalKey<FormState>();
 
-
   void loginAction() {
     if(formKey.currentState!.validate()){
       if(GetUtils.isEmail(emailController.text)){
@@ -28,8 +27,6 @@ class LoginController extends GetxController{
           Get.snackbar("Invalid Password", "Your password is not valid syntax");
         }
 
-
-
         /// todo login method
       }
       else{
@@ -40,26 +37,30 @@ class LoginController extends GetxController{
   // For google Password SignIn method
   void loginProcess() async{
 
-    final UserCredential userCredential = await FirebaseServices.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passController.text
-    );
-    debugPrint("-------signInWithGoogle  =>  1  --------");
+    try{
+      final UserCredential userCredential = await FirebaseServices.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passController.text
+      );
+      debugPrint("-------signInWithGoogle  =>  1  --------");
 
-    if(userCredential.user!.emailVerified){
-      final user = userCredential.user!;
+      if(userCredential.user!.emailVerified){
+        final user = userCredential.user!;
 
-      debugPrint(user.email);
-      debugPrint(user.displayName);
-      debugPrint(user.photoURL);
-      debugPrint(user.uid);
-      debugPrint("Valid User");
+        debugPrint(user.email);
+        debugPrint(user.displayName);
+        debugPrint(user.photoURL);
+        debugPrint(user.uid);
+        debugPrint("Valid User");
 
-    }else{
-      debugPrint("Invalid User");
+        Get.snackbar("Login Successfully", "You are ready to go");
+        Get.toNamed(Routes.signUpScreen);
+      }else{
+        debugPrint("Invalid User");
+      }
+    }catch(e){
+      e.toString().redConsole;
     }
-    Get.snackbar("Login Successfully", "You are ready to go");
-    Get.toNamed(Routes.signUpScreen);
 
   }
 
