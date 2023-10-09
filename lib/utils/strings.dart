@@ -4,4 +4,7 @@ class Strings{
   // login screen texts
   static String loginScreen = "Login Screen";
   static String loginScreenSubTitle = "Here for your account authentication";
+
+  static String homeScreen = "Home Screen";
+
 }

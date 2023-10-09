@@ -44,7 +44,7 @@ class LoginController extends GetxController{
       );
       debugPrint("-------signInWithGoogle  =>  1  --------");
 
-      if(userCredential.user!.emailVerified){
+      // if(userCredential.user!.emailVerified){
         final user = userCredential.user!;
 
         debugPrint(user.email);
@@ -54,10 +54,10 @@ class LoginController extends GetxController{
         debugPrint("Valid User");
 
         Get.snackbar("Login Successfully", "You are ready to go");
-        Get.toNamed(Routes.signUpScreen);
-      }else{
-        debugPrint("Invalid User");
-      }
+        Get.offAllNamed(Routes.homeScreen);
+      // }else{
+      //   debugPrint("Invalid User");
+      // }
     }catch(e){
       e.toString().redConsole;
     }
