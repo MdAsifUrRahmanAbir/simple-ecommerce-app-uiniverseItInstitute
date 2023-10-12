@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: Strings.appName,
       debugShowCheckedModeBanner: false,
       navigatorKey: Get.key,
-      initialRoute: Routes.homeScreen,
+      initialRoute: Routes.btmNavScreen,
       getPages: Pages.list,
       builder: (context, widget) {
         return MediaQuery(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../backend/models/popular_product_model.dart';
+import '../../../backend/models/product_model.dart';
 import '../../../common_widget/appbar_widget/appbar_widget.dart';
+import '../../../common_widget/appbar_widget/home_appbar_widget.dart';
 import '../../../common_widget/loading_widget.dart';
 import '../../../common_widget/text_labels/title_heading3_widget.dart';
 import '../../../common_widget/text_labels/title_heading4_widget.dart';
@@ -20,10 +21,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        appTitle: Strings.homeScreen,
+      appBar: HomeAppBarWidget(
         context: context,
-        onBackClick: () {},
+        controller: controller,
       ),
       body: Obx(() => controller.isLoading
           ? const Center(

@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_ecommerc/utils/logger.dart';
 
 import '../../backend/models/banners_model.dart';
-import '../../backend/models/popular_product_model.dart';
+import '../../backend/models/product_model.dart';
 import '../../backend/services/firebase_service.dart';
+import '../../routes/routes.dart';
+import 'subs_screens/all_products/all_products_screen.dart';
+import 'subs_screens/products_view/product_view_screen.dart';
 
 class HomeController extends GetxController {
   @override
@@ -13,18 +17,12 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   final _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
 
   /// fetching banners
   late List<BannerModel> bannerData;
-
   void _fetchBanners() async {
     _isLoading.value = true;
     update();
@@ -45,28 +43,57 @@ class HomeController extends GetxController {
 
 
   /// fetching popular products
-  late List<PopularProductModel> popularProductData;
-
+  late List<ProductModel> popularProductData;
   void _fetchPopularProducts() async {
     "START FETCHING Popular Product ".bgGreenConsole;
 
     try {
       popularProductData = (await FirebaseServices.fetchPopularProduct())!;
-
+      _fetchBestSellingProducts();
     } catch (e) {
       e.toString().redConsole;
     } finally {
-      _isLoading.value = false;
-      update();
+      // _isLoading.value = false;
+      // update();
     }
     _fetchBestSellingProducts();
   }
 
 
-  void _fetchBestSellingProducts() {}
+  /// fetching best selling products
+  late List<ProductModel> bestSellingProductData;
+  void _fetchBestSellingProducts() {
 
 
-  void goToDetailsScreen(PopularProductModel data) {
-    // routing and set data for next screen
+
+    _isLoading.value = false;
+    update();
+  }
+
+
+
+
+  /// routing functions with pass data
+  void goToDetailsScreen(ProductModel data, BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProductView(
+                  products: data,
+                )));
+  }
+
+  void seeAllPopularProducts(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AllProductsScreen(
+              products: popularProductData,
+              appTitle: "All Popular Products",
+            )));
+  }
+
+  void goToCartScreen() {
+    Get.toNamed(Routes.cartScreen);
   }
 }

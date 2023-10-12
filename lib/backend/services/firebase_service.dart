@@ -7,7 +7,7 @@ import 'package:simple_ecommerc/utils/logger.dart';
 import '../../common_widget/toast_message.dart';
 import '../../routes/routes.dart';
 import '../models/banners_model.dart';
-import '../models/popular_product_model.dart';
+import '../models/product_model.dart';
 
 
 class FirebaseServices {
@@ -152,13 +152,13 @@ class FirebaseServices {
     }
   }
 
-  static Future<List<PopularProductModel>?> fetchPopularProduct()async{
+  static Future<List<ProductModel>?> fetchPopularProduct()async{
     try{
       final QuerySnapshot<Map<String, dynamic>> snapshot = await _fireStore.collection(popularProducts).get();
 
-      List<PopularProductModel> bannerList = snapshot.docs.map((doc) {
+      List<ProductModel> bannerList = snapshot.docs.map((doc) {
         final data = doc.data();
-        return PopularProductModel.fromJson(data);
+        return ProductModel.fromJson(data);
       }).toList();
 
 
