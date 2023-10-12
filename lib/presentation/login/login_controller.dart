@@ -1,19 +1,34 @@
+import 'dart:async';
+
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:simple_ecommerc/utils/logger.dart';
 
 import '../../backend/services/firebase_service.dart';
 import '../../routes/routes.dart';
 import '../../utils/app_config.dart';
 
+
 class LoginController extends GetxController{
   final emailController = TextEditingController();
   final passController = TextEditingController();
   RxInt selectValue = 1.obs;
   RxBool isChecked = false.obs;
+  final box = GetStorage();
+
+  @override
+  void onInit() {
+    _startFeatch;
+    super.onInit();
+  }
+
 
   final formKey = GlobalKey<FormState>();
+
 
   void loginAction() {
     if(formKey.currentState!.validate()){
@@ -63,5 +78,18 @@ class LoginController extends GetxController{
     }
 
   }
+
+ void _startFeatch() {
+   Timer(const Duration(seconds: 2), () {
+     if(box.read("lastScreen")??false){
+      debugPrint("LastScreen already seen");
+      Get.offAllNamed(Routes.homeScreen);
+
+    }
+    else{
+      debugPrint("LastScreen dont seen");
+    }
+  });
+ }
 
 }

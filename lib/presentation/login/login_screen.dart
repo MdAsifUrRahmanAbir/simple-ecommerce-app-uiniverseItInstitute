@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../common_widget/input_feild_widgets/password_input_feild_widget.dart';
 import '../../common_widget/input_feild_widgets/primary_input_feild_widget.dart';
@@ -13,6 +14,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final _controller = Get.put(LoginController());
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,7 @@ class LoginScreen extends StatelessWidget {
                 dense: true,
                 onChanged: (value) {
                   _controller.isChecked.value = value!;
+                  box.write('lastScreen', true);
                 })),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -98,16 +101,5 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  // void _stratFatch() {
-  //   Timer(const Duration(seconds: 0), () {
-  //     if(box.read("lastScreen")??false){
-  //       debugPrint("LastScreen already seen");
-  //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashBoard(),), (route) => false);
-  //
-  //     }
-  //     else{
-  //       debugPrint("LastScreen dont seen");
-  //     }
-  //   });
-  // }
+
 }
