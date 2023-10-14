@@ -45,7 +45,7 @@ class HomeController extends GetxController {
 
 
   /// fetching popular products
-   late List<PopularProductModel> popularProductData;
+  late List<PopularProductModel> popularProductData;
 
   void _fetchPopularProducts() async {
     "START FETCHING Popular Product ".bgGreenConsole;
