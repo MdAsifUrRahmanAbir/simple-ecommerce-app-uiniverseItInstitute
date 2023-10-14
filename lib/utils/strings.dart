@@ -7,4 +7,8 @@ class Strings{
 
   static String homeScreen = "Home Screen";
 
+  // Product view Screen
+  static String productDetails = "Product Details";
+  static String productPrice = "Price: ";
+
 }
