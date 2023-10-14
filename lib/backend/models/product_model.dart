@@ -1,4 +1,4 @@
-class PopularProductModel {
+class ProductModel {
   final String id;
   final String name;
   final String image;
@@ -8,7 +8,7 @@ class PopularProductModel {
   final bool haveDiscount;
   final String currency;
 
-  PopularProductModel({
+  ProductModel({
     required this.id,
     required this.name,
     required this.image,
@@ -19,9 +19,8 @@ class PopularProductModel {
     required this.currency,
   });
 
-  // Factory method to create a PopularProductModel instance from a map (JSON)
-  factory PopularProductModel.fromJson(Map<String, dynamic> json) {
-    return PopularProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
       id: json['id'] as String,
       name: json['name'] as String,
       image: json['image'] as String,
@@ -33,7 +32,6 @@ class PopularProductModel {
     );
   }
 
-  // Method to convert a PopularProductModel instance to a map (JSON)
   Map<String, dynamic> toJson() {
     return {
       'id': id,
