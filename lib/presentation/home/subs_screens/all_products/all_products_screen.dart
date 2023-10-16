@@ -26,94 +26,99 @@ class AllProductsScreen extends StatelessWidget {
         onBackClick: () => Get.back(),
       ),
 
-      body:  GridView.builder(
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-             crossAxisSpacing: 11,
-            mainAxisSpacing: 11
-          ),
-          itemBuilder: (context, index) {
-            ProductModel data = controller.popularProductData[index];
+      body:  Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                 crossAxisSpacing: 11,
+                mainAxisSpacing: 11
+              ),
+              itemBuilder: (context, index) {
+                ProductModel data = controller.popularProductData[index];
 
-            return InkWell(
-              onTap: () {
-                controller.goToDetailsScreen(data, context);
-              },
+                return InkWell(
+                  onTap: () {
+                    controller.goToDetailsScreen(data, context);
+                  },
 
 
-              child: Container(
-                height: 150,
-                width: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: 150,
-                      width: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: FadeInImage(
-                          placeholder: AssetImage(Assets.productPlaceHolder),
-                          image: NetworkImage(products[index].image),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                  child: Container(
+                    height: 150,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    child: Stack(
                       children: [
-                        Container(
-                            height: 50,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(.7)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TitleHeading4Widget(
-                                  text: products[index].name,
-                                  color: Colors.white,
-                                ),
-                                Column(
-                                  children: [
-                                    TitleHeading3Widget(
-                                      text: products[index].haveDiscount
-                                          ? "${products[index].discountPrice.toStringAsFixed(2)} ${products[index].currency}"
-                                          : "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
-                                      color: Colors.black87,
+                        SizedBox(
+                          height: 150,
+                          width: 200,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage(
+                              placeholder: AssetImage(Assets.productPlaceHolder),
+                              image: NetworkImage(products[index].image),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                                height: 50,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
                                     ),
-                                    Visibility(
-                                        visible: products[index].haveDiscount,
-                                        child: Text(
-                                          "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
-                                          style: const TextStyle(
-                                              decoration:
-                                              TextDecoration.lineThrough,
-                                              fontSize: 12.0,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                        ))
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(.7)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TitleHeading4Widget(
+                                      text: products[index].name,
+                                      color: Colors.white,
+                                    ),
+                                    Column(
+                                      children: [
+                                        TitleHeading3Widget(
+                                          text: products[index].haveDiscount
+                                              ? "${products[index].discountPrice.toStringAsFixed(2)} ${products[index].currency}"
+                                              : "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
+                                          color: Colors.black87,
+                                        ),
+                                        Visibility(
+                                            visible: products[index].haveDiscount,
+                                            child: Text(
+                                              "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
+                                              style: const TextStyle(
+                                                  decoration:
+                                                  TextDecoration.lineThrough,
+                                                  fontSize: 12.0,
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold),
+                                            ))
+                                      ],
+                                    ),
                                   ],
-                                ),
-                              ],
-                            ))
+                                ))
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        itemCount: products.length,
+                  ),
+                );
+              },
+            itemCount: products.length,
+          ),
+        ),
       ),
     );
   }
