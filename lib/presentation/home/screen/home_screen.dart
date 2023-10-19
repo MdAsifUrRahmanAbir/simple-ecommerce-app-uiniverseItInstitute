@@ -46,21 +46,6 @@ class HomeScreen extends StatelessWidget {
                 FlashSaleProducts(
                   controller: controller,
                 ),
-                FashionProducts(
-                  controller: controller,
-                ),
-                AccessoriesProducts(
-                  controller: controller,
-                ),
-
-                ShoesProducts(
-                  controller: controller,
-                ),
-                WatchProducts(
-                  controller: controller,
-                ),
-
-
               ],
             )),
     );
