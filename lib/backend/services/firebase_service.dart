@@ -115,10 +115,10 @@ class FirebaseServices {
 
 
   /// database
-  static setData(Map<String, dynamic> userData, bool isAdmin) async {
+  static setData(Map<String, dynamic> userData) async {
     // isAdmin  if true = admin or customer
 
-    // await _fireStore.collection(isAdmin ? customerUserInfo : sellerInfo).doc(user.uid).set(userData);
+    await _fireStore.collection(customerUserInfo ).doc(user.uid).set(userData);
   }
 
   static checkData(Map<String, dynamic> userData, bool isUser) async {
@@ -131,7 +131,7 @@ class FirebaseServices {
 
       // Get.offAllNamed(Routes.bottomNavScreen);
     }  else {
-      setData(userData, isUser);
+      setData(userData);
     }
   }
 
