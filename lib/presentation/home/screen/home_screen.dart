@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../backend/models/product_model.dart';
-import '../../../common_widget/appbar_widget/appbar_widget.dart';
 import '../../../common_widget/appbar_widget/home_appbar_widget.dart';
 import '../../../common_widget/loading_widget.dart';
-import '../../../common_widget/text_labels/title_heading3_widget.dart';
-import '../../../common_widget/text_labels/title_heading4_widget.dart';
-import '../../../common_widget/text_labels/title_heading5_widget.dart';
-import '../../../utils/strings.dart';
 import '../widgets/banner_widget.dart';
 import '../home_controller.dart';
+import '../widgets/flashSale_products_widget.dart';
 import '../widgets/popular_products_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,8 +33,9 @@ class HomeScreen extends StatelessWidget {
                 PopularProducts(
                   controller: controller,
                 ),
-
-
+                FlashSaleProducts(
+                  controller: controller,
+                ),
               ],
             )),
     );

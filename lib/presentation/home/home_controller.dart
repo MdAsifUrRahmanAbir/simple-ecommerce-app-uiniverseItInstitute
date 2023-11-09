@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    _fetchBanners();
+    fetchBanners();
     super.onInit();
   }
 
@@ -23,7 +23,7 @@ class HomeController extends GetxController {
 
   /// fetching banners
   late List<BannerModel> bannerData;
-  void _fetchBanners() async {
+  void fetchBanners() async {
     _isLoading.value = true;
     update();
     "START FETCHING BANNER ".bgGreenConsole;
@@ -79,8 +79,8 @@ class HomeController extends GetxController {
         context,
         MaterialPageRoute(
             builder: (context) => ProductView(
-                  products: data,
-                )));
+              products: data,
+            )));
   }
 
   void seeAllPopularProducts(BuildContext context) {

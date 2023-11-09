@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import '../../../../backend/local_storage.dart';
 import '../../../../backend/models/product_model.dart';
 import '../../../../common_widget/appbar_widget/appbar_widget.dart';
+
 import '../../../../common_widget/text_labels/title_heading3_widget.dart';
 import '../../../../utils/assets_path.dart';
+import '../../../../utils/strings.dart';
 
 class ProductView extends StatelessWidget {
   const ProductView({super.key, required this.products});
@@ -85,6 +87,8 @@ class ProductView extends StatelessWidget {
                 ),
               ],
             ),
+
+
           ),
 
 

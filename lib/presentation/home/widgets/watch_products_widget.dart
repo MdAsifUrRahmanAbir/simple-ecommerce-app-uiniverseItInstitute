@@ -1,54 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../../../backend/models/product_model.dart';
-import '../../../../common_widget/appbar_widget/appbar_widget.dart';
-import '../../../../common_widget/text_labels/title_heading3_widget.dart';
-import '../../../../common_widget/text_labels/title_heading4_widget.dart';
-import '../../../../utils/assets_path.dart';
-import '../../home_controller.dart';
+import '../../../backend/models/product_model.dart';
+import '../../../common_widget/text_labels/title_heading3_widget.dart';
+import '../../../common_widget/text_labels/title_heading4_widget.dart';
+import '../../../utils/assets_path.dart';
+import '../home_controller.dart';
 
+class WatchProducts extends StatelessWidget {
+  const WatchProducts({super.key, required this.controller});
 
-class AllProductsScreen extends StatelessWidget {
-    AllProductsScreen({super.key, required this.products, required this.appTitle});
-
-  final List<ProductModel> products;
-  final String appTitle;
-  final controller = Get.put(HomeController());
-
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(
-        appTitle: appTitle,
-        context: context,
-        onBackClick: () => Get.back(),
-      ),
-
-      body:  Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                 crossAxisSpacing: 11,
-                mainAxisSpacing: 11
-              ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const TitleHeading3Widget(
+              text: "Watch Products",
+            ),
+            TextButton(
+                onPressed: () {
+                  controller.seeAllPopularProducts(context);
+                },
+                child: const Text("See All")),
+          ],
+        ),
+        SizedBox(
+          height: 150,
+          width: MediaQuery.of(context).size.width,
+          child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 ProductModel data = controller.popularProductData[index];
-
                 return InkWell(
                   onTap: () {
                     controller.goToDetailsScreen(data, context);
                   },
-
-
                   child: Container(
                     height: 150,
                     width: 200,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10),
                     ),
                     child: Stack(
                       children: [
@@ -59,7 +55,7 @@ class AllProductsScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: FadeInImage(
                               placeholder: AssetImage(Assets.productPlaceHolder),
-                              image: NetworkImage(products[index].image),
+                              image: NetworkImage(data.image),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -83,24 +79,24 @@ class AllProductsScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     TitleHeading4Widget(
-                                      text: products[index].name,
+                                      text: data.name,
                                       color: Colors.white,
                                     ),
                                     Column(
                                       children: [
                                         TitleHeading3Widget(
-                                          text: products[index].haveDiscount
-                                              ? "${products[index].discountPrice.toStringAsFixed(2)} ${products[index].currency}"
-                                              : "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
+                                          text: data.haveDiscount
+                                              ? "${data.discountPrice.toStringAsFixed(2)} ${data.currency}"
+                                              : "${data.price.toStringAsFixed(2)} ${data.currency}",
                                           color: Colors.black87,
                                         ),
                                         Visibility(
-                                            visible: products[index].haveDiscount,
+                                            visible: data.haveDiscount,
                                             child: Text(
-                                              "${products[index].price.toStringAsFixed(2)} ${products[index].currency}",
+                                              "${data.price.toStringAsFixed(2)} ${data.currency}",
                                               style: const TextStyle(
                                                   decoration:
-                                                  TextDecoration.lineThrough,
+                                                      TextDecoration.lineThrough,
                                                   fontSize: 12.0,
                                                   color: Colors.red,
                                                   fontWeight: FontWeight.bold),
@@ -116,10 +112,14 @@ class AllProductsScreen extends StatelessWidget {
                   ),
                 );
               },
-            itemCount: products.length,
-          ),
-        ),
-      ),
+              separatorBuilder: (context, i) => const SizedBox(width: 15),
+              itemCount: controller.popularProductData.length >= 10
+                  ? 10
+                  : controller.popularProductData.length
+              // itemCount: 5
+              ),
+        )
+      ],
     );
   }
 }
