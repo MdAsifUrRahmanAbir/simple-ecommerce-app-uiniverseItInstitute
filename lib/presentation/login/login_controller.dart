@@ -69,7 +69,7 @@ class LoginController extends GetxController{
         debugPrint("Valid User");
 
         Get.snackbar("Login Successfully", "You are ready to go");
-        Get.offAllNamed(Routes.homeScreen);
+        Get.offAllNamed(Routes.btmNavScreen);
       // }else{
       //   debugPrint("Invalid User");
       // }

@@ -83,22 +83,8 @@ class SignUpController extends GetxController {
       "zip": "",
     };
 
-    Map<String, dynamic> adminData = {
-      "id": user.uid,
-      "email": emailController.text,
-      "phoneNumber": phoneNameController.text,
-      "name": "${firstNameController.text} ${lastNameController.text}",
-      "image": user.photoURL,
-      "address": "",
-      "country": "",
-      "state": "",
-      "city": "",
-      "area": "",
-    };
-
-
     if (userCredential.additionalUserInfo!.isNewUser) {
-      await FirebaseServices.setData(selectValue.value == 1 ? adminData : customerData, selectValue.value == 1 ? true : false);
+      await FirebaseServices.setData( customerData);
       Get.offAllNamed(Routes.loginScreen);
     }
   }

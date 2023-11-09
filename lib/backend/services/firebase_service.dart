@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:simple_ecommerc/backend/local_storage.dart';
 import 'package:simple_ecommerc/utils/logger.dart';
 
 import '../../common_widget/toast_message.dart';
@@ -20,8 +21,8 @@ class FirebaseServices {
   static const String customerUserInfo = "customerUserInfo";
   static const String sellerInfo = "sellerInfo";
   static const String banners = "banners";
+  static const String ordersInfo = "ordersInfo";
   static const String popularProducts = "popularProducts";
-
 
   /// auth
   Future<UserCredential> createUserWithEmailAndPassword(
@@ -105,6 +106,8 @@ class FirebaseServices {
       // AppData.logOut();
 
       if (toast) {
+        LocalStorage.logout();
+        LocalStorage.cartRemove();
         ToastMessage.success("Logout User");
         Get.offAllNamed(Routes.loginScreen);
       }
@@ -115,10 +118,10 @@ class FirebaseServices {
 
 
   /// database
-  static setData(Map<String, dynamic> userData, bool isAdmin) async {
+  static setData(Map<String, dynamic> userData) async {
     // isAdmin  if true = admin or customer
 
-    // await _fireStore.collection(isAdmin ? customerUserInfo : sellerInfo).doc(user.uid).set(userData);
+    await _fireStore.collection(customerUserInfo ).doc(user.uid).set(userData);
   }
 
   static checkData(Map<String, dynamic> userData, bool isUser) async {
@@ -131,7 +134,7 @@ class FirebaseServices {
 
       // Get.offAllNamed(Routes.bottomNavScreen);
     }  else {
-      setData(userData, isUser);
+      setData(userData);
     }
   }
 
@@ -170,4 +173,20 @@ class FirebaseServices {
     }
   }
 
+
+  static setOrderData(Map<String, dynamic> userData,String value) async {
+    // isAdmin  if true = admin or customer
+
+    userData.addAll({
+      "userId": user.uid
+    });
+    await _fireStore.collection(ordersInfo ).doc(value).set(userData);
+  }
+
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> myOrdersStream() =>
+      _fireStore.collection(ordersInfo).where("userId", isEqualTo: user.uid).snapshots();
+
+
+  // static Stream<QuerySnapshot<Map<String, dynamic>>> ordersStream() => _fireStore.collection(ordersInfo).snapshots();
 }
