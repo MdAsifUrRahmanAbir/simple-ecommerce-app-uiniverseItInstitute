@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_ecommerc/backend/local_storage.dart';
 import 'package:simple_ecommerc/backend/models/product_model.dart';
-import 'package:simple_ecommerc/common_widget/text_labels/title_heading1_widget.dart';
 
+import '../../../../backend/paypal/paypal_payment.dart';
 import '../../../../common_widget/appbar_widget/appbar_widget.dart';
 import '../../../../common_widget/text_labels/title_heading2_widget.dart';
 import '../../../../common_widget/text_labels/title_heading4_widget.dart';
@@ -71,7 +71,6 @@ class CartScreen extends StatelessWidget {
                                         .toStringAsFixed(2)),
                                 TitleHeading2Widget(text: data.currency),
 
-                                /// todo products name and price
                               ],
                             ),
                           );
@@ -79,7 +78,6 @@ class CartScreen extends StatelessWidget {
                         itemCount: controller.products.length),
                   ),
 
-            /// todo subtotal and delivery charge
 
             Visibility(
               visible: controller.products.isNotEmpty,
@@ -108,7 +106,15 @@ class CartScreen extends StatelessWidget {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           LocalStorage.cartRemove();
-                          Get.offAllNamed(Routes.btmNavScreen);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> PaypalPayment(
+                            amount: controller.subTotal.toStringAsFixed(2),
+                            onFinish: (value){
+                              //
+                              controller.addHistory(value);
+
+                            },
+                          )));
+
                         },
                         icon: const Icon(Icons.sell_outlined),
                         label: const Text("Buy"),

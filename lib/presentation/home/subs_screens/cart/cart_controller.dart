@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../../../../backend/local_storage.dart';
 import '../../../../backend/models/product_model.dart';
+import '../../../../backend/services/firebase_service.dart';
+import '../../../../routes/routes.dart';
 
 class CartController extends GetxController{
 
@@ -25,5 +27,24 @@ class CartController extends GetxController{
       }
 
     }
+  }
+
+  void addHistory(value) async{
+
+    List<Map<String, dynamic>> convertToMapProducts = products.map((product) => product.toJson()).toList();
+
+
+    Map<String, dynamic> orderDetails = {
+      "orderId": value.toString(),
+      "total": subTotal + deliveryCharge,
+      "others": convertToMapProducts,
+      // ... add others fields
+    };
+
+      await FirebaseServices.setOrderData(orderDetails, value.toString());
+
+    Get.snackbar("Payment Success", "Successfully placed the order.");
+    LocalStorage.cartRemove();
+    Get.offAllNamed(Routes.btmNavScreen);
   }
 }
