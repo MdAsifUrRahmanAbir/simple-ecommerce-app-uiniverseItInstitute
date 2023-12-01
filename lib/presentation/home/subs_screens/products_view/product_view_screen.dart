@@ -3,15 +3,18 @@ import 'package:get/get.dart';
 
 import '../../../../backend/local_storage.dart';
 import '../../../../backend/models/product_model.dart';
+import '../../../../backend/paypal/paypal_payment.dart';
 import '../../../../common_widget/appbar_widget/appbar_widget.dart';
 
 import '../../../../common_widget/text_labels/title_heading3_widget.dart';
 import '../../../../utils/assets_path.dart';
 import '../../../../utils/strings.dart';
+import '../cart/cart_controller.dart';
 
 class ProductView extends StatelessWidget {
-  const ProductView({super.key, required this.products});
+   ProductView({super.key, required this.products});
   final ProductModel products;
+  final controller = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +83,15 @@ class ProductView extends StatelessWidget {
                 ),
 
                 ElevatedButton.icon(onPressed: (){
+
+                  //LocalStorage.cartRemove();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PaypalPayment(
+                      amount: controller.subTotal.toStringAsFixed(2),
+                  onFinish: (value){
+                  controller.addHistory(value);
+
+                  },
+                  )));
 
                 },
                   icon: const Icon(Icons.sell_outlined),

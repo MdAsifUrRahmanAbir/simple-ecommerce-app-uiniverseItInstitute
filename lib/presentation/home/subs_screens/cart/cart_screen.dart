@@ -64,12 +64,25 @@ class CartScreen extends StatelessWidget {
 
                                 const Spacer(),
 
-                                TitleHeading2Widget(
-                                    text: (data.haveDiscount
-                                            ? data.discountPrice
-                                            : data.price)
-                                        .toStringAsFixed(2)),
-                                TitleHeading2Widget(text: data.currency),
+                                Row(
+                                  children: [
+                                    TitleHeading2Widget(
+                                        text: (data.haveDiscount
+                                                ? data.discountPrice
+                                                : data.price)
+                                            .toStringAsFixed(2)),
+                                    TitleHeading2Widget(text: data.currency),
+
+                                    IconButton(
+                                        onPressed: (){
+                                          LocalStorage.cartRemove();
+
+                                        },
+                                        icon: const Icon(Icons.delete)
+                                    )
+                                  ],
+                                ),
+
 
                               ],
                             ),
