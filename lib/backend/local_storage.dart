@@ -33,6 +33,32 @@ class LocalStorage {
     await box.write(productCart, lastValues);
   }
 
+  static Future<void> removeProductFromCart({required ProductModel product}) async {
+    final box = GetStorage();
+    List<Map<String, dynamic>> lastValues = GetStorage().read(productCart)?.cast<Map<String, dynamic>>() ?? [];
+
+
+    print(lastValues);
+    print(lastValues.length);
+
+
+      int index = 0;
+      for (var element in lastValues) {
+        if(element["id"] == product.id){
+          lastValues.removeAt(index);
+          break;
+        }
+        index++;
+      }
+
+    // lastValues.add(productMap);
+
+    print(lastValues);
+    print(lastValues.length);
+
+    await box.write(productCart, lastValues);
+  }
+
   static List<ProductModel> currentCart() {
     List<Map<String, dynamic>> products = GetStorage().read(productCart)?.cast<Map<String, dynamic>>() ?? [];
 

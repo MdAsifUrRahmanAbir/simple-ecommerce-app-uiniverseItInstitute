@@ -75,7 +75,7 @@ class CartScreen extends StatelessWidget {
 
                                     IconButton(
                                         onPressed: (){
-                                          LocalStorage.cartRemove();
+                                          LocalStorage.removeProductFromCart(product: data);
 
                                         },
                                         icon: const Icon(Icons.delete)
